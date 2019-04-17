@@ -30,7 +30,7 @@ provider:
   region: ap-southeast-2 
   environment:
     tableName: ${self:custom.tableName}
-    
+
   # 'iamRoleStatement' defines the permission policy for the Lambda function.
   # In this case Lambda functions are granted with permissions to access DynamoDB.
   iamRoleStatements:
@@ -115,3 +115,4 @@ resources:
   # API Gateway Errors
   - ${file(resources/api-gateway-errors.yml)}
   - ${file(resources/dynamodb-table.yml)}
+  - ${file(resources/s3-bucket.yml)}
