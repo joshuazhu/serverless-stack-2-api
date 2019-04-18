@@ -15,13 +15,15 @@ custom:
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
-
-
+  
+  # Load our secret environment variables based on the current stage.
+  # Fallback to default if it is not in prod.
+  environment: ${file(env.yml):${self:custom.stage}, file(env.yml):default}
+  
 # Use the serverless-webpack plugin to transpile ES6
 plugins:
   - serverless-webpack
   - serverless-offline
-
 
 provider:
   name: aws
@@ -30,6 +32,7 @@ provider:
   region: ap-southeast-2 
   profile: acloudguru-joshz-learn
   environment:
+    stripeSecretKey: ${self:custom.environment.stripeSecretKey}
     tableName: ${self:custom.tableName}
 
   # 'iamRoleStatement' defines the permission policy for the Lambda function.

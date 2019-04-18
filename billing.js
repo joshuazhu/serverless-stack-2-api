@@ -9,7 +9,8 @@ export async function main(event, context) {
 
   // Load our secret key from the  environment variables
   const stripe = stripePackage(process.env.stripeSecretKey);
-
+  console.log("running stripe")
+  console.log(process.env)
   try {
     await stripe.charges.create({
       source,
@@ -19,6 +20,7 @@ export async function main(event, context) {
     });
     return success({ status: true });
   } catch (e) {
+    console.log("failed running stripe")
     return failure({ message: e.message });
   }
 }
